@@ -1,0 +1,12 @@
+ClearPlayerClasses
+AddPlayerClass TheSkrPlayer
+AddSlotDefault 1 SkrKatana
+AddSlotDefault 1 SkrNewFist
+AddSlotDefault 2 SkrNewPistol
+AddSlotDefault 2 SkrRevolver
+AddSlotDefault 3 SkrNewShotgun
+AddSlotDefault 4 SkrCombatRifle
+
+alias TestWeapon "Summon Shotgun"
+alias TestActor "Summon DoomImpBall"
+alias TestScript "puke -100"

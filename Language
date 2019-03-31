@@ -1,0 +1,227 @@
+[enu default]
+// Si quieres hacer un patch de traduccion, cambia los valores en el language.
+
+// Cheat Messages 
+STSTR_DQDON = "You-can't-hurt-me mode on.";
+STSTR_DQDOFF = "Now everybody can hurt you.";
+STSTR_FAADDED = "Lock and load.";
+STSTR_KFAADDED = "Keys, because you're lazy. Oh and gunz.";
+STSTR_NCON	= "No Clippy activated";
+STSTR_NCOFF	= "Back to the touchable reality.";
+STSTR_CHOPPERS = "Here, have my chainsaw.";
+STSTR_CLEV = "Time to teleport!";
+STSTR_MUS = "Because you want to hear something else.";
+STSTR_NOMUS = "Wrong numbar dumbass.";
+
+// Death obituaries. (Envioriment)
+OB_FALLING = "%o fell too far, that will leave a big mark on %g's foot..";
+OB_CRUSH = "%o went crushed by a ceiling.";
+OB_WATER = "%o again, you're not a mermaid, you can choke under water, face it.";
+OB_SLIME = "%o drowned and melted in pure slime.";
+OB_LAVA = "%o felt the hell of the lava.";
+OB_BARREL = "%o loves to shoot barrels, however %g did it too close.";
+OB_SPLASH = "%o got a rocket in the mouth.";
+OB_R_SPLASH = "%o died by the rocket's derbis.";
+OB_ROCKET = "%o loves riding big and explosive rockets.";
+OB_SUICIDE = "%o hated %p life, ending %p suffering.";
+OB_KILLEDSELF = "%o was dumb enough to kill himself.";
+OB_EXIT = "%o, no pain, no gain. You can't leave from this map.";
+OB_MONTELEFRAG = "%o had a baby through the telefrag and %g turned out to shit.";
+OB_MPTELEFRAG = "%k explored inside %o's body, thanks to telefrag.";
+
+// Quit messages
+QUITMSG = "Have a good day sir!.";
+QUITMSG1 = "I'll eat you next time that you come here, I'll F00king eat you.";
+QUITMSG2 = "Next time, work harder.";
+QUITMSG3 = "DON'T YOU DARE TO PRESS Y, DON'T YOU DARE!";
+QUITMSG4 = "Get outta here already.";
+QUITMSG5 = "If i'd only had some candy... \nCan you bring me one while you're out?";
+QUITMSG6 = "Did'nt expected to come back to this mod like this.";
+QUITMSG7 = "Eh, tired already?.";
+QUITMSG8 = "Game over?";
+QUITMSG9 = "The monsters scare you that much?";
+QUITMSG10 = "Let me guess, energy bar right?.";
+QUITMSG11 = "Ahre";
+QUITMSG12 = "You need to go right now?";
+QUITMSG13 = "Hmm, feels like you had enough blood for today is'nt it?.";
+QUITMSG14 = "Don't tell me that you're rage-quitting.";
+
+DOSY = "Do you want to close the game?";
+
+PRESSKEY = "Just press a friggin key.";
+
+PRESSYN = "Yay or Nay?";
+
+// Ah, to announce the fraglimit and time limits of skulltag
+TXT_FRAGLIMIT = "Game-Set!";
+TXT_TIMELIMIT = "Time's up!";
+
+// Self-explainatory.
+TXT_YES = "Yep.";
+TXT_NO = "Nope.";
+
+// Friend obituaries. (Team killing messages)
+OB_DEFAULT = "%o died somehow, don't ask me why cause I dunno.";
+OB_FRIENDLY1 = "%k, you should clean your glasses, belive me it works.";
+OB_FRIENDLY2 = "%k you hate to keep alive a team don't you?.";
+OB_FRIENDLY3 = "%k should get a trauma for killing %p ally.";
+OB_FRIENDLY4 = "%k is an antisocial.";
+
+// Misc
+SAVEDEAD = "No in-game, no service!";
+
+PACIFIST = "No monsters around you. No weapons to find.\n If you just want to explore the maps, go ahead and try!";
+SISSY = "No fun with not much demons to kill \na big simbol of your sissyness.";
+EASY = "Less monsters \nHowever more weapons will accompany you.";
+NORMAL = "Ultra violence with vanilla monsters.";
+HARD = "Enemies are faster firing son of a bitches\n they' look more smarter than the last time.";
+NIGHTMARE = "This is impossible. \n I'll pray for your safety if you decide to do this.";
+YOUBITCH = "You sick masochist.";
+ONEHITKO = "Monsters and you, are vurnerable to the 1 hit k.o. rule. \n1 hit and that's it.";
+OPMODE = "You start with Everything on your equipment. \n(And i mean weapons, armor and ammo + items)\n this is for debuggin pruposes or just to showcase the weapons :D"
+SURVOPMODE = "You get stacked on ALL stuff, \nbut that's all that you're gonna get!.";
+HIDDEN = "Don't you have anyhing better to do m8? /n alright, every monster is a CYB. (Go back before you press y, i warn ya)";
+
+// Key messages
+PD_BLUEO = "Don't tell me that you forgot the \chBlue key, \cfdo you?.";
+PD_REDO = "Don't tell me that you forgot the \cgRed key, \cfdo you?.";
+PD_YELLOWO = "Don't tell me that you forgot the \ciYellow key, \cfdo you?.";
+
+PD_YELLOWS = "You can't activate it... If you could find that \ciGolden Skull.";
+PD_BLUES = "You can't activate it... If you could find that \chSaphire Skull.";
+PD_REDS = "You can't activate it... If you could find that \cgRuby Skull.";
+
+PD_BLUEC = "Access Denied, please use the \chBlue Key-Card \cfand try again.";
+PD_REDC = "Access Denied, please use the \cgRed Key-Card \cfand try again.";
+PD_YELLOWC = "Access Denied, please use the \ciYellow Key-Card \cfand try again.";
+
+PD_BLUEK = "To open this door you need a \chblue key.";
+PD_REDK = "To open this door you need a \cgred key.";
+PD_YELLOWK = "To open this door you need a \ckyellow key.";
+
+PD_ANY = "This cheap door will open ONLY if you have any key.";
+PD_ALL3 = "3 keys of the same type to go though this door.";
+PD_ALL6 = "You need literally all of the 6 keys that exists on this map, wish you luck finding them..";
+
+// Startup messages
+STARTUP1 = "\chREADY TO GO! Welcome to the \cfSKROLS Home! V8";
+STARTUP2 = "\cg The Multi-Prupose mod from the \cmSKR \cgclan is here once again with a new fresh air!";
+STARTUP3 = "\chHave fun!";
+
+// Skill texts
+SK_SISSY = "Have mercy ;-;";
+SK_EASY = "I need practice.";
+SK_NORMAL = "I'm ready, and you?.";
+SK_HARD = "Don't stop me now.";
+SK_NIGHT = "Give me a challenge!";
+
+GOTPMAG = "\cdYou picked up a pistol magazine.";
+GOTREVBULBOX = "\cdYou found a box of bullets for the revolver, 6 bullets inside.";
+GOTREVBUL3 = "\cdYou found 3 bullets for the revolver.";
+GOTREVBULL = "\cdYou found a single bullet for the revolver.";
+GOTCRCLIP = "\cdYou found a round for the combat rifle.";
+GOTSHELLS = "\cdYou found 2 pairs of shells.";
+
+GOTSHELLS4 = "\cdYou found 2 pairs of shells.";
+GOTSHELLS3 = "\cdYou found a trio of shells.";
+GOTSHELLS2 = "\cdYou found a pair of shells.";
+GOTSHELLS1 = "\cdYou found a single of shell.";
+
+LEFTSHELLS3 = "\cqYou're full on shells, you leaved 3 shells on the floor.";
+LEFTSHELLS2 = "\cqYou're full on shells, you leaved 2 shells on the floor.";
+LEFTSHELLS1 = "\cqYou're full on shells, you leaved a shell on the floor.";
+
+GOTGP_CLIPBOX = "\cdA big bullet pack!";
+
+AMMOSHOW_BULL_BP =  "-)\cd3 \cqCombat Rifle clips."
+					"\n-)\cd12 \cqRevolver bullets."
+					"\n-)\cd5 \cqPistol magazines.";
+
+AMMOSHOW_BULL_BP2A =  "-)\cd6 \cqCombat Rifle clips."
+					"\n-)\cd24 \cqRevolver bullets."
+					"\n-)\cd10 \cqPistol magazines.";
+
+GOTGP_CLIP = "\cdA small bullet pack!";
+
+AMMOSHOW_BULL_SP =  "-)\cd1 \cqCombat Rifle clips."
+					"\n-)\cd3 \cqRevolver bullets."
+					"\n-)\cd1 \cqPistol magazines.";
+
+AMMOSHOW_BULL_SP2A =  "-)\cd2 \cqCombat Rifle clips."
+					"\n-)\cd6 \cqRevolver bullets."
+					"\n-)\cd2 \cqPistol magazines.";
+
+GOT_REVOLVER = "\ciYou found a black revolver! You are the boss.";
+GOT_PISTOL = "\ciSo there is where you leaved that pistol!, now take care of it next time.";
+GOT_SHOTGUN = "\ciThe shotgun is yours to wield!";
+GOT_CMBRIFLE = "\ciThe zombieman's combat rifle! Now give'em a taste of their own bullets!";
+
+AKIMBO_PISTOL = "\cjNow you can \chDual Wield \cjwith the pistols!";
+
+TESTLANG = "A script to be tested...";
+
+/////////////
+// Weapons //
+/////////////
+
+OB_KICKD = "%o got the %k's foot in %p face."; 
+//Kick somebody to death.
+
+OB_KICK2 = "%o got his ass kicked by %k's mighty foot!, that will leave a mark."; 
+//Kick somebody to death with berserk.
+
+OB_MELEECRIT = "%o was beaten down brutally by %k's bare hands."; 
+//Get a berserk pack and melee'em.
+
+OB_PISTOL = "%o was shooted by %k's pistol.";
+// Shoot your enemy with the pistol.
+
+OB_SHOTGUN = "%o ate the peelets from %k's shotgun.";
+// Shoot your enemy with the shotgun.
+
+OB_KATANA = "%k made %o to be a meaty-bloody sushi, with the katana. %k is a potential chef.";
+// Slice your enemy with the katana.
+
+OB_REVOLVER = "%o got a bullet in %p head from %k's revolver.";
+// Kill a enemy with the revolver.
+
+OB_CMBRIFLE = "%o was taken down by %k's Combat Rifle.";
+// Kill a enemy with the combat rifle.
+
+//////////////
+// Monsters //
+//////////////
+
+OB_ZOMBIE_CRIFLE = "%o underestimated a zombieman. And %g went down by its Combat Rifle.";
+OB_ZOMBIE_PISTOL = "%o got some nice holes on the body maden up by a zombieman with a pistol.";
+
+/////////////////////////
+// Weapon Description   //
+/////////////////////////
+
+	DES_T_PISTOL = "PISTOL"
+	DES_M_PISTOL = "A Handgun maden up for self defense.";
+	DES_A_PISTOL = "Ammo: Pistol Magazines.";
+	DES_BPR_PISTOL = "Bullets per Round: 12 Bullets.";
+	DES_S_PISTOL = "Special: Dual Wield (Find the same weapon again). \nFast fire (Timing + Energy), \nDouble Round (On dual wield)";
+	
+	DES_T_CMBRIFLE = "Combat Rifle";
+	DES_M_CMBRIFLE = "A rifle stole from a zombieman, precise and good.";
+	DES_A_CMBRIFLE = "Ammo: Combat Rifle Clips.";
+	DES_BPR_CMBRIFLE = "Bullets per Round: 24 Bullets.";
+	DES_S_CMBRIFLE = "Special: Burst fire (Fire). \nRepeater fire (Alt-Fire)";
+	
+	DES_T_SHOTGUN = "Shotgun";
+	DES_M_SHOTGUN = "A shotgun that it likes to be spready as naturally does.";
+	DES_A_SHOTGUN = "Ammo: Shotgun shells.";
+	DES_BPR_SHOTGUN = "Shells per Round: 8 Shells.";
+	DES_S_SHOTGUN = "Special: 2 Shots (Alt-Fire).";
+	
+	DES_T_REVOLVER = "Revolver";
+	DES_M_REVOLVER = "6 chambers, 1 trigger, 1 boss.";
+	DES_A_REVOLVER = "Ammo: Revolver bullets.";
+	DES_BPR_REVOLVER = "Bullets per round: 6 Bullets.";
+	DES_S_REVOLVER = "Special: *None*.";
+
+
+
