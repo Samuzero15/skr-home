@@ -1,0 +1,112 @@
+
+// The whole actors that does'nt do a shit, but they work well as flags!
+Actor Boolme : Inventory 
+{
+ Inventory.MaxAmount 1
+ +Undroppable
+}
+
+Actor CountMe : Inventory
+{
+	Inventory.MaxAmount 0x7fffffff
+	+Undroppable
+	+Inventory.IgnoreSkill
+}
+
+Actor FloorCheck 
+{
+	Height 4
+	radius 16
+	+Solid
+	+NoClip
+	states
+	{
+	  Spawn:
+		TNT1 A 0 
+	  stop
+	}
+}
+
+Actor Reloading : Boolme {}
+
+// Dual weapons sys!
+Actor AkimboFireLeft : BoolMe {}
+Actor AkimboFireRight : BoolMe {}
+Actor AkimboQuickFireLeft : BoolMe {}
+Actor AkimboQuickFireRight : BoolMe {}
+
+Actor AkimboReloadLeft : BoolMe {}
+Actor AkimboReloadRight : BoolMe {}
+Actor AkimboReloadBoth : BoolMe {}
+
+Actor Isholding : BoolMe {}
+Actor HoldingTrigger : BoolMe {}
+
+// Combo gunz, because I want to stop the double call.
+Actor WomboCombo: Boolme {} 
+// AND IT AN'T FALCO! OG OH OOOHH  HOOOOOO WOMBO COMBO!!!
+
+// Energy stuff cuz i luv dak suls xdxd
+Actor TiredCheck : BoolMe {}
+
+Actor PercentEnergy : CountMe {Inventory.Maxamount 300}
+Actor MaxEnergy : CountMe {Inventory.Maxamount 300}
+
+Actor NormalEnergy : CountMe {Inventory.Maxamount 100}
+Actor ExtraEnergy : CountMe {Inventory.Maxamount 100}
+Actor FinalEnergy : CountMe {Inventory.Maxamount 100}
+
+Actor PercentTiring : CountMe {Inventory.Maxamount 100}
+Actor EnergyRegenPause : BoolMe {}
+
+Actor UsingEnergy : BoolMe {}
+
+
+ACTOR PlayerIsCheatingWithIDFAorIDKFA : Ammo
+{
+   Inventory.MaxAmount 1
+}
+
+Actor LNLSoundCheatPlayed : BoolMe {}
+
+// Just to do some special stuff if you wanted to do shit with those cheat codes.
+Actor YouCheaterMotherFucker : BoolMe {}
+
+
+
+Actor SpecialMove : CountMe {Inventory.MaxAmount 9999}
+
+Actor HPBonus : RandomSpawner replaces HealthBonus
+{
+	DropItem "HealthBonus2" 256, 15
+	DropItem "RandomFood" 256, 3
+}
+
+actor RJMissile
+{
+	radius 11
+	height 8
+	DamageType "Harmless"
+	speed 20
+	seesound "weapons/rocklf"
+	deathsound "weapons/rocklx"
+	obituary "%o got blasted away by %k Jumping Rocket. Wait why I'm showing you this?."
+	PROJECTILE
+	+ROCKETTRAIL
+	+RANDOMIZE
+	+DEHEXPLOSION
+    +EXPLODEONWATER
+    +SKYEXPLODE
+	states
+		{
+		Spawn:
+		MISL A 4 bright A_custommissile("LargeSmoke", 4)
+		loop
+		Death:
+		MISL B 0 BRIGHT A_SpawnItem("BoomParticleSpawner")
+		MISL B 8 Bright a_explode
+		MISL C 6 Bright	
+		MISL D 4 Bright
+		stop
+	}
+}
