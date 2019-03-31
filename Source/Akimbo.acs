@@ -1,0 +1,87 @@
+	
+Script "AkimboGuns" (void)
+{
+	Bool AguantaRight = false;
+	Bool AguantaLeft = false;
+	while(StrCmp(ArmaActual(), "SkrNewPistol") == 0 
+			&& ACS_NamedExecuteWithResult("PistolDualWieldCheck") == 1 && estaVivo(0))
+	{
+		if(teclaPresionada(FUEGOPRI))
+		{
+		 if(AguantaRight == false)
+		  {
+			GiveInventory("AkimboQuickFireRight",1);
+			AguantaRight = True;
+			//Log(s:"Quick Right!");
+		  } else {TakeInventory("AkimboQuickFireRight",0x7fffffff);}
+			GiveInventory("AkimboFireRight", 1);
+		}
+		else {
+		  AguantaRight = False;
+		  TakeInventory("AkimboFireRight", 0x7fffffff);
+	    }
+		
+		if(teclaPresionada(FUEGOALT))
+		{
+		 if(AguantaLeft == false)
+		  {
+			GiveInventory("AkimboQuickFireLeft",1);
+			AguantaLeft = True;
+			//Log(s:"Quick Left!");
+		  } else {TakeInventory("AkimboQuickFireLeft",0x7fffffff);}
+			GiveInventory("AkimboFireLeft", 1);
+		}
+		else {
+		  AguantaLeft = False;
+		  TakeInventory("AkimboFireLeft", 0x7fffffff);
+	    }
+		delay(1);
+	}
+	TakeInventory("AkimboFireLeft", 0x7fffffff);
+	TakeInventory("AkimboFireRight", 0x7fffffff);
+}
+
+Script "AkimboReloadCheck" (void)
+{ // Lets check the conditions to allow the reload.
+	// Now, it depends on some cases of the reload:
+	// 3)Left and right, with the same or without ammo : Allow reload for the both of you.
+	// 2)Left with lowest ammo than Right or no ammo: Allow reload for the left gun.
+	// 1)Right with lowest ammo than Left or no ammo: Allow reload for the right gun.
+	
+	// We dont allow reload if both arms are full of bullets. (0)
+	// Also If you have 1 magazine, by default it will be loaded to the gun with lowest ammo.
+	if(StrCmp(ArmaActual(), "SkrNewPistol") == 0 
+			&& ACS_NamedExecuteWithResult("PistolDualWieldCheck") == 1)
+		{
+		 int LeftMag = CheckInventory("PistolMag_BullLeft");
+		 int RightMag = CheckInventory("PistolMag_BullRight");
+		 int MagAmmo = CheckInventory("PistolMagazine");
+		 
+ //log(s:"A.R.C. Executed");
+	     if(!(LeftMag == 12 && RightMag == 12) && MagAmmo >= 1) //Only execute if you have at least 1 magazine.
+		 {
+ //log(s:"(A.R.C) Reload Needed, values: \cfRight: ", d:rightMag, s:" Left: " ,d:leftMag, s:" With ", d:MagAmmo, s:" From the ammo pool.");
+		  if(MagAmmo == 1)
+			{
+			 if((LeftMag == RightMag)) { SetResultValue(1); }// Load the right gun.
+			 else
+		 	 {
+			  if(LeftMag < RightMag) SetResultValue(2); // Load the left gun.
+			  if(RightMag < LeftMag) SetResultValue(1); // Load the right gun.
+			 }
+			}
+		  else
+		  {
+			if((LeftMag == RightMag)) {SetResultValue(3);} // Both guns to reload.
+			else
+			{
+			 if(LeftMag < RightMag) SetResultValue(2); // Load the left gun.
+			 if(RightMag < LeftMag) SetResultValue(1); // Load the right gun.
+			}
+		  }
+		}else{
+ //log(s:"(A.R.C) No need to reload.");
+		SetResultValue(0); // No reload needed, don't execute.
+		}
+	}
+}

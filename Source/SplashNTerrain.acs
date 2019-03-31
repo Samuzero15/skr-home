@@ -1,0 +1,301 @@
+
+//Checkers para revisar el suelo del actor.
+// Perfecto para hacer wevonas.
+
+function bool EnAgua(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"FWATER1") ||
+		CheckActorFloorTexture(tid,"FWATER2") ||
+		CheckActorFloorTexture(tid,"FWATER3") ||
+		CheckActorFloorTexture(tid,"FWATER4"); 
+}
+
+function bool EnLava(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"LAVA1") ||
+		CheckActorFloorTexture(tid,"LAVA2") ||
+		CheckActorFloorTexture(tid,"LAVA3") ||
+		CheckActorFloorTexture(tid,"LAVA4"); 
+}
+
+function bool EnAcido(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"NUKAGE1") ||
+		CheckActorFloorTexture(tid,"NUKAGE2") ||
+		CheckActorFloorTexture(tid,"NUKAGE3"); 
+}
+
+function bool EnBaba(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"SLIME01")||
+		CheckActorFloorTexture(tid,"SLIME02")||
+		CheckActorFloorTexture(tid,"SLIME03")||
+		CheckActorFloorTexture(tid,"SLIME04")||
+		CheckActorFloorTexture(tid,"SLIME05")||
+		CheckActorFloorTexture(tid,"SLIME06")||
+		CheckActorFloorTexture(tid,"SLIME07")||
+		CheckActorFloorTexture(tid,"SLIME08") ;
+}
+
+function bool EnTomate(int tid) // Sangre
+{
+	return 
+		CheckActorFloorTexture(tid,"BLOOD1")||
+		CheckActorFloorTexture(tid,"BLOOD2")||
+		CheckActorFloorTexture(tid,"BLOOD3")||
+		CheckActorFloorTexture(tid,"BLOOD4");
+}
+
+function bool EnGrama(int tid) 
+{
+	return 
+		CheckActorFloorTexture(tid,"GRASS1")||
+		CheckActorFloorTexture(tid,"GRASS2");
+}
+
+function bool SonidoPaso (int vol) // Retornara si necesita un splash o no. (generalmente son los liquidos.)
+{
+	bool faltaSplash = false;
+	str sound = "";
+	
+	if(enLiquido(0) || enGrama(0))
+	{
+		if(enGrama(0))
+			{sound = "floor/dirt";}
+		else if(enAgua(0))
+			{sound = "dssplash";}
+		else if(enLava(0) || enAcido(0)) 
+			{sound = "world/lavasizzlesmall";}
+			
+		else if( enTomate(0) || enBaba(0) ) 
+			{sound = "world/sludgegloopsmall";}
+		faltaSplash = true;
+	}
+	else // No hay splash para estos terrenos. 
+	{
+		if(enAlfombra(0))
+			{sound = "floor/carpet";}
+		else if(enGranilla(0))
+			{sound = "floor/gravel";}
+		else if(enTierra(0))
+			{sound = "floor/dirt";}
+		else if(enMetalDuro(0))
+			{sound = "floor/metal";}
+		else if(enMetalFragil(0))
+			{sound = "floor/met2";}
+		else if(enRoca(0))
+			{sound = "floor/rock";}
+		else if(enAlgoPegajoso(0))
+			{sound = "floor/slimy";}
+		else if(enSueloDuro(0))
+			{sound = "floor/hard";}
+		else if(enBaldosa(0))
+			{sound = "floor/tile";}
+		else if(enBaldosaConEco(0))
+			{sound = "floor/tile2";}
+		else if(enMadera(0))
+			{sound = "floor/wood";}
+	}
+	if(strcmp(sound,"") == 0) sound = "Footsteps";
+	
+	ActivatorSound(sound, vol);
+	return faltaSplash;
+}
+
+function bool enAlfombra(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"CEIL4_1")||
+		CheckActorFloorTexture(tid,"CEIL4_2")||
+		CheckActorFloorTexture(tid,"CEIL4_3")||
+		CheckActorFloorTexture(tid,"FLAT5_3")||
+		CheckActorFloorTexture(tid,"FLAT5_4")||
+		CheckActorFloorTexture(tid,"FLAT5_5")||
+		CheckActorFloorTexture(tid,"FLAT14")||
+		CheckActorFloorTexture(tid,"FLOOR1_1");
+}
+
+function bool enGranilla(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"FLOOR6_1")||
+		CheckActorFloorTexture(tid,"FLOOR6_2")||
+		CheckActorFloorTexture(tid,"MFLR8_3");
+}	
+
+function bool enTierra(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"MFLR8_4")||
+		CheckActorFloorTexture(tid,"RROCK16")||
+		CheckActorFloorTexture(tid,"RROCK17")||
+		CheckActorFloorTexture(tid,"RROCK18")||
+		CheckActorFloorTexture(tid,"RROCK19")||
+		CheckActorFloorTexture(tid,"RROCK20")||
+		CheckActorFloorTexture(tid,"FLAT10");
+}	
+
+function bool enMetalDuro(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"CEIL1_2")||
+		CheckActorFloorTexture(tid,"FLAT1_3")||
+		CheckActorFloorTexture(tid,"FLAT1_4")||
+		CheckActorFloorTexture(tid,"FLAT20") ||
+		CheckActorFloorTexture(tid,"FLAT22") ||
+		CheckActorFloorTexture(tid,"FLAT23") ||
+		CheckActorFloorTexture(tid,"GATE1") ||
+		CheckActorFloorTexture(tid,"GATE2") ||
+		CheckActorFloorTexture(tid,"GATE3") ||
+		CheckActorFloorTexture(tid,"GATE4") ||
+		CheckActorFloorTexture(tid,"STEP1") ||
+		CheckActorFloorTexture(tid,"STEP2");
+}	
+
+function bool enMetalFragil(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"FLOOR4_8")||
+		CheckActorFloorTexture(tid,"FLOOR5_1")||
+		CheckActorFloorTexture(tid,"SLIME14") ||
+		CheckActorFloorTexture(tid,"SLIME15") ||
+		CheckActorFloorTexture(tid,"SLIME16");
+}	
+
+function bool enRoca(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"FLAT1")    ||
+		CheckActorFloorTexture(tid,"FLAT1_1")  ||
+		CheckActorFloorTexture(tid,"FLAT1_2")  ||
+		CheckActorFloorTexture(tid,"FLAT4")    ||
+		CheckActorFloorTexture(tid,"FLAT5_6")  ||
+		CheckActorFloorTexture(tid,"FLAT5_7")  ||
+		CheckActorFloorTexture(tid,"FLAT5_8")  ||
+		CheckActorFloorTexture(tid,"FLOOR5_4") ||
+		CheckActorFloorTexture(tid,"MFLR8_2")  ||
+		CheckActorFloorTexture(tid,"GRNROCK")  ||
+		CheckActorFloorTexture(tid,"SLIME13")  ||
+		CheckActorFloorTexture(tid,"RROCK03")  ||
+		CheckActorFloorTexture(tid,"RROCK04")  ||
+		CheckActorFloorTexture(tid,"RROCK09")  ||
+		CheckActorFloorTexture(tid,"RROCK10")  ||
+		CheckActorFloorTexture(tid,"RROCK11")  ||
+		CheckActorFloorTexture(tid,"RROCK12")  ||
+		CheckActorFloorTexture(tid,"RROCK13")  ||
+		CheckActorFloorTexture(tid,"RROCK14")  ||
+		CheckActorFloorTexture(tid,"RROCK15");
+}	
+
+function bool enAlgoPegajoso(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"SFLR7_1")||
+		CheckActorFloorTexture(tid,"SFLR7_4")||
+		CheckActorFloorTexture(tid,"SFLR6_4")||
+		CheckActorFloorTexture(tid,"SFLR6_1");
+}	
+
+function bool enSueloDuro(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"CEIL3_1") ||
+		CheckActorFloorTexture(tid,"CEIL3_2") ||
+		CheckActorFloorTexture(tid,"CEIL3_5") ||
+		CheckActorFloorTexture(tid,"CEIL3_6") ||
+		CheckActorFloorTexture(tid,"CEIL5_1") ||
+		CheckActorFloorTexture(tid,"CEIL5_2") ||
+		CheckActorFloorTexture(tid,"FLAT5")   ||
+		CheckActorFloorTexture(tid,"FLOOR0_1")||
+		CheckActorFloorTexture(tid,"FLOOR0_2")||
+		CheckActorFloorTexture(tid,"FLOOR0_3")||
+		CheckActorFloorTexture(tid,"FLOOR1_6")||
+		CheckActorFloorTexture(tid,"FLOOR1_7")||
+		CheckActorFloorTexture(tid,"FLOOR7_1")||
+		CheckActorFloorTexture(tid,"MFLR8_1") ||
+		CheckActorFloorTexture(tid,"GRNLITE1");
+}	
+
+function bool enBaldosa(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"CEIL3_1") ||
+		CheckActorFloorTexture(tid,"CEIL3_2") ||
+		CheckActorFloorTexture(tid,"CEIL3_5") ||
+		CheckActorFloorTexture(tid,"CEIL3_6") ||
+		CheckActorFloorTexture(tid,"CEIL5_1") ||
+		CheckActorFloorTexture(tid,"CEIL5_2") ||
+		CheckActorFloorTexture(tid,"FLAT5")   ||
+		CheckActorFloorTexture(tid,"FLOOR0_1")||
+		CheckActorFloorTexture(tid,"FLOOR0_2")||
+		CheckActorFloorTexture(tid,"FLOOR0_3")||
+		CheckActorFloorTexture(tid,"FLOOR1_6")||
+		CheckActorFloorTexture(tid,"FLOOR1_7")||
+		CheckActorFloorTexture(tid,"FLOOR7_1")||
+		CheckActorFloorTexture(tid,"MFLR8_1") ||
+		CheckActorFloorTexture(tid,"GRNLITE1");
+}	
+
+function bool enBaldosaConEco(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"DEM1_1")  ||
+		CheckActorFloorTexture(tid,"DEM1_2")  ||
+		CheckActorFloorTexture(tid,"DEM1_3")  ||
+		CheckActorFloorTexture(tid,"DEM1_4")  ||
+		CheckActorFloorTexture(tid,"DEM1_5")  ||
+		CheckActorFloorTexture(tid,"DEM1_6")  ||
+		CheckActorFloorTexture(tid,"FLOOR4_6")||
+		CheckActorFloorTexture(tid,"FLOOR5_3")||
+		CheckActorFloorTexture(tid,"FLOOR7_2")||
+		CheckActorFloorTexture(tid,"FLOOR5_2");
+}	
+
+function bool enMadera(int tid)
+{
+	return 
+		CheckActorFloorTexture(tid,"CEIL1_1") ||
+		CheckActorFloorTexture(tid,"CRATOP1") ||
+		CheckActorFloorTexture(tid,"CRATOP2") ||
+		CheckActorFloorTexture(tid,"FLAT5_1") ||
+		CheckActorFloorTexture(tid,"FLAT5_2") ;
+}	
+
+function bool enElectrico(int tid)
+{
+	return 0;
+}	
+
+function bool enNieve(int tid)
+{
+	return 0;
+}	
+
+
+/*
+#define TIPOSDESUELO 14
+
+str EverySingleFloor[TIPOSDESUELO][20] =
+{
+	
+	{ // Baldosa
+		"CEIL1_3",  "CEIL3_3",  "CEIL3_4", 	"COMP01",	"CONS1_1",
+		"CONS1_5",  "CONS1_7",  "FLAT2",  	"FLAT3",  	"FLAT8",
+		"FLAT9",    "FLAT17",   "FLAT18",   "FLAT19", 	"FLOOR0_5",
+		"FLOOR0_6", "FLOOR0_7", "FLOOR3_3", "FLOOR4_1", "FLOOR4_5",
+	    "TLITE6_1", "TLITE6_4", "TLITE6_5", "TLITE6_6"
+	},  
+};
+*/
+
+
+
+function bool EnLiquido(int tid)
+{
+	return
+	EnAcido(tid) || EnBaba(tid) || EnLava(tid) || EnAgua(tid) || EnTomate(tid);
+}

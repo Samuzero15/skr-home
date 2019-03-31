@@ -1,0 +1,84 @@
+
+function void resultadoCombo(int Arma, int Cod_Combo)
+{
+	int costo;
+	bool suceso;
+	int tired = IsTired();
+	
+	 int angulo = GetActorAngle(0);
+	 angulo >>= 8;
+	 angulo %= 256;
+	 
+	SWITCH(Arma)
+	{
+	  CASE CMB_WPN_FIST:
+		switch(Cod_Combo)
+		{
+		 case CMB_SMASHFORWARD: 
+		 costo = 20;
+		 if(UsarEnergia(costo) == true && tired != True)
+		 {
+	       print(s:"Tecnica sin armas: Golpe fuerte frontal!");
+	       GiveInventory("SmashFor",1);
+		 }
+		 break;
+		}
+	  BREAK;
+	  CASE CMB_WPN_KATANA:
+	  	switch(Cod_Combo)
+		{
+		 case CMB_DASHFORWARD: 
+		 costo = 5;
+		 if(enElSuelo()){ // Solo se hara y se consumira energia SI esta condicion se cumple priemro.
+		 if(UsarEnergia(costo) == true && tired != True){
+	       print(s:"Tecnica de Espada: Paso Rapido!");
+	       ThrustThing(angulo,10,1);
+		  }
+		 }
+		 break;
+	  
+	     case CMB_DASHBACKWARD: 
+		  costo = 5;
+		  if(enElSuelo()){ 
+		  if(UsarEnergia(costo) == true && tired != True){
+			print(s:"Tecnica de Espada: Retroceso Rapido!");
+			ThrustThing(angulo + 128,10,0);
+		   }
+		  }
+		 break;
+	  
+		 case CMB_DASHLEFT: 
+		  costo = 5;
+		  if(enElSuelo()){ 
+		  if(UsarEnergia(costo) == true && tired != True){
+		   print(s:"Tecnica de Espada: Evasion a la Izquierda!");
+		   ThrustThing(angulo + 64,10,0);
+		   }
+		  }
+		 break;
+	  
+		 case CMB_DASHRIGHT: 
+		  costo = 5;
+		  if(enElSuelo()){
+		  if(UsarEnergia(costo) == true && tired != True){
+		    print(s:"Tecnica de Espada: Evasion a la Derecha!");
+			ThrustThing(angulo + 192,10,0);
+		   }
+		  }
+		 break;
+	  
+		 case CMB_DECAPITATE:
+		  costo = 10;
+		  if(UsarEnergia(costo) == true && tired != True)
+		  {
+		   print(s:"Tecnica de Espada: Decapitacion!");
+		  }
+		 break;
+		 
+		 default:break;
+		}
+	  BREAK;
+	  
+	  DEFAULT:BREAK;
+	}
+}

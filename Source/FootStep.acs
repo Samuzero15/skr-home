@@ -1,0 +1,21 @@
+
+
+
+Script "Footsteps" ENTER {
+	int retraso, StepVolume;
+	int x,y,z;
+	int buttons, movebutton;
+	str Def_FootStep = "Footsteps";
+	While(1) {
+		x = getActorVelX(0);
+		y = getActorVelY(0);
+		z = getActorVelZ(0);
+		Delay(1);
+		retraso = 16 - Velocidad(x,y,z) / 2;
+		StepVolume = 64 * Velocidad(x,y,z);
+		if(enElSuelo()) {
+			SonidoPaso(StepVolume);
+		}
+		Delay(retraso);
+	}	
+}

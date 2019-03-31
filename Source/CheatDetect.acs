@@ -1,0 +1,34 @@
+
+Function void cheatDetect (void)
+{
+	if(CheckInventory("PlayerIsCheatingWithIDFAorIDKFA"))
+	{
+	  if(!CheckInventory("LNLSoundCheatPlayed"))
+	  {activatorSound("lnl", 127); giveinventory("LNLSoundCheatPlayed",1);}
+	  
+	  
+	  If(!CheckInventory("SkrCombatRifle"))
+	  {
+		GiveInventory("SkrCombatRifle",1);
+		GiveInventory("CombatRifleCharger", 24);
+	  } else {GiveInventory("CombatRifleCharger", 24);}
+	  
+	  If(!CheckInventory("SkrNewShotgun"))
+	  {
+		GiveInventory("SkrNewShotgun",1);
+		GiveInventory("ShotgunChamber", 8);
+	  }else{GiveInventory("ShotgunChamber", 8);}
+	  
+	  If(!CheckInventory("SkrRevolver"))
+	  {
+		GiveInventory("SkrRevolver",1);
+		GiveInventory("RevCannon", 6);
+	  }else{GiveInventory("RevCannon", 6);}
+	  
+	  TakeInventory("PlayerIsCheatingWithIDFAorIDKFA",1);
+	  TakeInventory("LNLSoundCheatPlayed",1);
+	  
+	  GiveInventory("YouCheaterMotherFucker",1);
+	}
+	
+}

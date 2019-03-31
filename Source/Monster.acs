@@ -1,0 +1,25 @@
+
+int FrictionFactor = 0.0;
+int FrictionSpeed = 10.0;
+
+Script "FuckDaFriction" (int decide)
+{
+int buttons;
+int movebutton;
+	while(Checkinventory("Boolme") == 1)
+	{
+	buttons = GetPlayerInput(-1,INPUT_BUTTONS);
+	movebutton = buttons & (ADE | ATR | DER | IZQ);
+		if(moveButton && enElSuelo())
+		{
+		  SetActorProperty(0, APROP_Speed, FrictionSpeed);
+		  ModifyPlayerFriction(0, FrictionFactor);
+		}else
+		{
+		  SetActorProperty(0, APROP_Speed, 1.0);
+		  Delay(1);
+		}
+		delay(1);
+	}
+		SetActorProperty(0, APROP_Speed, 1.0);
+}

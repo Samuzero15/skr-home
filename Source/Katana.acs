@@ -1,0 +1,422 @@
+
+script "Katana Moves" Enter
+{
+ //log(s:"Combo katana iniciado...");
+ /*
+ int button;
+ int timering = 0;
+ int orden = 0;
+ bool hold = false;
+ bool cuenta = false;
+ int ultimoCombo = 0;
+ int ultimoZ = getActorZ(0);
+ int viejoZ;
+ int angulo;
+ int oldinput = 0;
+ int activador = playernumber();
+ 
+  while(checkweapon("SkrKatana"))
+  {
+	int input = getPlayerInput(-1,INPUT_BUTTONS);
+	int energy = Checkinventory("Energy");
+	int tired = Checkinventory("TiredCheck");
+	 angulo = GetActorAngle(0);
+	 angulo >>= 8;
+	 angulo %= 256;
+	 viejoZ = ultimoZ;
+	 ultimoZ = getActorZ(0);
+	 switch(input)
+	 {
+	  case ADE:
+	  case ATR:
+	  case IZQ:
+	  case DER:
+	  case FUEGOPRI:
+	  case FUEGOALT:
+	  case AGACHO:  
+	  case SALTO:
+	  hold = mismoBoton(input, oldinput);
+	   if(hold == false)
+	   {
+		 comb[activador][orden] = input;
+		 orden++;
+		 cuenta = true;
+		 timering = 0;
+	   }else if(timering >= TIMEOUT_COMBO) cuenta = false;
+	  oldinput = input;
+	  break;
+	  case 0:
+	   //log(s:"...");
+	   hold = false;
+	   oldinput = input;
+	  break;
+	  default:
+	   if(hold == false)
+	   {
+		 //log(s:"Desconocido");
+	   }
+	   hold = true;
+	  break;
+	 }
+	delay(1);
+	setfont("SMALLFONT");
+	hudMessage(s:"Orden:", d:orden, s:"\nTimer: ", d:timering, s:"\nNumero de Combo: ", d:ultimoCombo
+	;HUDMSG_PLAIN, 1, CR_RED, 0.5, 0.95,35);
+	// log(s:"Time...");
+	if(orden > 1)
+	{// Bueno, ya hay un combo por verificar...
+	 ultimoCombo = LeeCombos(activador, orden-1);
+	 Setfont("SmallFont");
+	 int costo;
+	 int suceso;
+	 switch(ultimoCombo)
+	 {
+	  case DASH_FORWARD_EXE: 
+	  costo = 5;
+	  suceso = energiaSuficiente(energy, costo);
+	  if(suceso == true)
+	  {
+	   if(enElSuelo() && tired != 1)
+	   { 
+	   print(s:"Tecnica de Espada: Paso Rapido!");
+	   ThrustThing(angulo,10,0);
+	   takeinventory("Energy", costo);
+	   }
+	  }
+	  else CansarJugador();
+	  cuenta = false;
+	  break;
+	  
+	  case DASH_BACKWARD_EXE: 
+	  costo = 5;
+	  suceso = energiaSuficiente(energy, costo);
+	  if(suceso == true)
+	  {
+	   if(enElSuelo() && tired != 1)
+	   { 
+	   print(s:"Tecnica de Espada: Retroceso Rapido!");
+	   ThrustThing(angulo + 128,10,0);
+	   takeinventory("Energy", costo);
+	   }
+	  }
+	  else CansarJugador();
+	  cuenta = false;
+	  break;
+	  
+	  case DODGE_LEFT_EXE: 
+	  costo = 5;
+	  suceso = energiaSuficiente(energy, costo);
+	  if(suceso == true)
+	  {
+	   if(enElSuelo() && tired != 1)
+	   { 
+	    print(s:"Tecnica de Espada: Evasion a la Izquierda!");
+	    ThrustThing(angulo + 64,10,0);
+		takeinventory("Energy", costo);
+	   }
+	  }
+	  else CansarJugador();
+	  cuenta = false;
+	  break;
+	  
+	  case DODGE_RIGHT_EXE: 
+	  costo = 5;
+	  suceso = energiaSuficiente(energy, costo);
+	  if(suceso == true)
+	  {
+	   if(enElSuelo() && tired != 1)
+	   {
+	    print(s:"Tecnica de Espada: Evasion a la Derecha!");
+	    ThrustThing(angulo + 192,10,0);
+	    takeinventory("Energy", costo);
+	   }
+	  }
+	  else CansarJugador();
+	  cuenta = false;
+	  break;
+	  
+	  case DECAPITATE_EXE:
+	  costo = 10;
+	  suceso = energiaSuficiente(energy, costo);
+	  if(suceso == true)
+	   {
+	    print(s:"Tecnica de Espada: Decapitacion!");
+	    takeinventory("Energy", costo);
+	   }
+	  else CansarJugador();
+	  cuenta = false;
+	  break;
+	  
+	  case UNSETTLED:
+		cuenta = true;
+	  break;
+	  default: 
+		cuenta = false;
+	  break;
+	  }
+	  setfont("BIGFONT");
+	  hudMessage(s:dimequecombo(activador) ;HUDMSG_PLAIN, 2, CR_RED, 0.5, 0.75,35);
+	 if(cuenta == false)limpiaCombo(activador);
+	}
+	if(cuenta == true && timering < TIMEOUT_COMBO)timering++;
+	else
+	  {
+	     orden = 0;
+	     timering = 0;
+	     cuenta = false;
+	  }
+  }*/ 
+  delay(1);
+  restart;
+}
+// Level of combo = Hits needed to execute.
+// Number of combo = The number to execute certain combo.
+// Cost of combo = The energy needed to Execute.
+// Condition of combo = The condition to Execute.
+
+/*
+
+int InfoCombos[NCOMBOS][2] = {  
+								{LEVEL_I , DASH_FORWARD_EXE},
+								{LEVEL_I , DODGE_LEFT_EXE},
+								{LEVEL_I , DODGE_RIGHT_EXE},
+								{LEVEL_I , DASH_BACKWARD_EXE},
+								{LEVEL_II , DECAPITATE_EXE},
+							 };
+
+int codeCombo[Jugadores][TAMCOMBO];
+
+function bool esDeDASH_FORWARD(int tecla, int pos) {return mismoBoton(tecla, comb_DASH_FORWARD[pos]);}
+function bool esDeDODGE_LEFT(int tecla, int pos) {return mismoBoton(tecla, comb_DODGE_LEFT[pos]);}
+function bool esDeDODGE_RIGHT(int tecla, int pos) {return mismoBoton(tecla, comb_DODGE_RIGHT[pos]);}
+function bool esDeDASH_BACKWARD(int tecla, int pos) {return mismoBoton(tecla, comb_DASH_BACKWARD[pos]);}
+function bool esDeDECAPITATE(int tecla, int pos) {return mismoBoton(tecla, comb_DECAPITATE[pos]);}
+
+function int BuscaCosto(int codigoCombo) // GetLevel
+{// Get the level of the Combo number
+	int result;
+	str deboggie = "";
+	for(int i = 0; i < NCOMBOS; i++)
+	{
+		if(codigoCombo == InfoCombos[i][1]) return InfoCombos[i][0];
+	}
+	return 0;
+}
+
+function int BuscaLevel(int codigoCombo) // GetLevel
+{// Get the level of the Combo number
+	int result;
+	str deboggie = "";
+	for(int i = 0; i < NCOMBOS; i++)
+	{
+		if(codigoCombo == InfoCombos[i][1]) return InfoCombos[i][0];
+	}
+	return 0;
+}
+
+bool Lv1Combos[4] = { true, true, true, true };
+bool Lv2Combos = true; // Es un solo combo de todas formas.
+
+function int leeCombos(int activador, int Lv)
+{ // En la primera parte se descarta los combos que no son.
+ int cualSera = NONE_EXE;
+ bool foundkey = false;
+ for(int i = 0; i < TAMCOMBO; i++)
+ {
+  log(s:"Itera:", d:i);
+  foundkey = false;
+    if((esDeDASH_FORWARD(comb[activador][i], i)) 
+			&& (Lv1Combos[DASH_FORWARD_EXE-1] != false)){
+			   codeCombo[activador][i] = DASH_FORWARD_EXE;
+			   ReArrange(activador, i, DECAPITATE_EXE, DASH_FORWARD_EXE);
+			   foundkey = true;
+			}
+	else Lv1Combos[DASH_FORWARD_EXE-1] = false;
+	
+	if((esDeDODGE_LEFT(comb[activador][i], i)) 
+			&& (Lv1Combos[DODGE_LEFT_EXE-1] != false)){
+			   codeCombo[activador][i] = DODGE_LEFT_EXE;
+			   foundkey = true;
+			}
+	else Lv1Combos[DODGE_LEFT_EXE-1] = false;
+	
+	if((esDeDODGE_RIGHT(comb[activador][i], i)) 
+			&& (Lv1Combos[DODGE_RIGHT_EXE-1] != false)){
+			   codeCombo[activador][i] = DODGE_RIGHT_EXE;
+			   foundkey = true;
+			}
+	else Lv1Combos[DODGE_RIGHT_EXE-1] = false;
+	
+	if((esDeDASH_BACKWARD(comb[activador][i], i)) 
+			&& (Lv1Combos[DASH_BACKWARD_EXE-1] != false)){
+			   codeCombo[activador][i] = DASH_BACKWARD_EXE;
+			   foundkey = true;
+			}
+	else Lv1Combos[DASH_BACKWARD_EXE-1] = false;
+	
+	if((esDeDECAPITATE(comb[activador][i], i)) 
+			&& (Lv2Combos != false)){
+			   codeCombo[activador][i] = DECAPITATE_EXE;
+			   ReArrange(activador, i, DASH_FORWARD_EXE, DECAPITATE_EXE);
+			   foundkey = true;
+			}
+	else Lv2Combos = false;
+	
+	if(foundkey == false)codeCombo[activador][i] = 0;
+ }
+  cualSera = FullCombo(activador);
+  resetto();
+  return cualSera;// Si llega aqui, pues no acertate ningun combo.
+}
+
+function void ReArrange(int act, int index, int replace, int value)
+{
+ for(int i = index-1; i >= 0; i--) 
+  if(replace == codeCombo[act][i]) codeCombo[act][i] = value;
+}
+
+function void resetto(void)
+{
+ for(int i = 0; i < 4; i++)
+  if(Lv1Combos[i] != true)Lv1Combos[i] = true;
+  Lv2Combos = true;
+}
+
+function int FullCombo(int act)
+{
+	int codigo = codeCombo[act][0];
+	int levelCombo = BuscaLevel(codigo);
+	int aciertos = 0;
+	str deboggie = "";
+	deboggie = strparam(s:"Code: ",d: codigo, s:" Level: ",d:levelCombo, s:" [");
+	log(s:deboggie);
+	for(int i = 1; (i < TAMCOMBO); i++)
+	{
+	deboggie = strparam( d:codeCombo[act][i],s:", ");
+	log(s:deboggie);
+		if((codigo != codeCombo[act][i]) && (codeCombo[act][i] != 0)) return NONE_EXE;
+		else if(codeCombo[act][i] == 0)
+		{
+			if(aciertos == levelCombo) return codigo;
+			else return UNSETTLED;
+		}
+		else aciertos++;
+	}
+	deboggie = strparam(s:"]");
+	log(s:deboggie);
+  return codigo;
+}
+
+*/
+
+/*
+function bool esCombPosible(int activador, int ultimoLv)
+{
+  bool esPosible = false;
+	for(int i = 0; i < ultimoLv+1 && esPosible != true; i++)
+	{
+	 if((comb[activador][i] == comb_DECAPITATE[i]) && 
+	  (Lv1Combos[DECAPITATE_EXE-1] != CMB_False)) esPosible = true;
+	}
+  return esPosible;
+}
+
+function int cuantosQuedan(void)
+{
+int resp = 0;
+ for(int i = 0; i < NCOMBOS ; i++)
+  {
+  if(esElCombo[i] == true){ resp++}
+  }
+ RETURN resp;
+}
+
+function int cualQueda(void)
+{
+int resp = -1;
+ for(int i = 0; i < NCOMBOS ; i++)
+  {
+  if(esElCombo[i] == true){RETURN i;}
+  }
+ RETURN resp;
+}*/
+
+function str dimequecombo(int activador)
+{ // Debug
+str Secuencia = "";
+ for(int i = 0; i < TAMCOMBO; i++)
+ {
+  switch(comb[activador][i])
+  {
+   case ADE:
+   Secuencia = strparam(s:Secuencia,s:"Arriba ");
+   break;
+   case ATR:
+   Secuencia = strparam(s:Secuencia, s:"Abajo ");
+   break;
+   case IZQ:
+   Secuencia = strparam(s:Secuencia, s:"Izquierda ");
+   break;
+   case DER:
+   Secuencia = strparam(s:Secuencia, s:"Derecha ");
+   break;
+   case FUEGOPRI:
+   Secuencia = strparam(s:Secuencia, s:"1er. FUEGO ");
+   break;
+   case FUEGOALT:
+   Secuencia = strparam(s:Secuencia, s:"2do. FUEGO ");
+   break;
+   case AGACHO:
+   Secuencia = strparam(s:Secuencia, s:"Agachado ");
+   break;
+   case SALTO:
+   Secuencia = strparam(s:Secuencia, s:"Salto ");
+   break;
+   default:
+   Secuencia = strparam(s:Secuencia, s:"Nada ");
+   break;
+  }
+ }
+ return Secuencia;
+}
+
+script "Katana Disarm" (int energyUsed)
+{ // Por si recibes un ataque muy fuerte
+ GiveInventory("DefenseBroken",1);
+ TakeInventory("Energy",energyUsed);
+ AmbientSound("Weapons/KatanaBlockBreak",69);
+}
+
+script "Katana Defense" (void)
+{ // La defensa consiste asi:
+  // Si es una defensa facil, usaras la mitad de 
+  //  energia dependiendo del daño recibido.
+  // Si es un daño mayor o igual a 50 pts, aparte de que se rompera tu defensa 
+  //  y gastaras la mitad de energia de ese daño, recibiras la cuarta parte de ese daño de forma directa.
+ int dano = diffDano(0);
+ int danoAJugador = dano/4;
+ int energiaUsada = dano/2;
+  //SetActivator(ActivatorTID(), AAPTR_Master);
+  //SetActivator(ActivatorTID(), AAPTR_Tracer);
+ /*int Tu = GetActorProperty(ActivatorTID(),APROP_HEALTH);
+ */
+  	SetActivator(0,AAPTR_Default);
+ int Yo = GetActorProperty(ActivatorTID(),APROP_HEALTH);
+ 
+ 
+ printBOLD(s:"Salud: ", d:Yo, s:"\n");
+		
+ //SetActivator(ActivatorTID(),AAPTR_Target);
+ //log(d:GetActorProperty(ActivatorTID(),APROP_HEALTH));
+ if(dano >= 50)
+ {
+   Thing_Damage(0,danoAJugador, 0);
+   ACS_NamedExecuteAlways("Katana Disarm",0,energiaUsada);
+ }else
+ {
+  Thing_Damage(0,danoAJugador, 0);
+  TakeInventory("Energy",energiaUsada);
+  AmbientSound("Weapons/KatanaBlock",96);
+ }
+}
+

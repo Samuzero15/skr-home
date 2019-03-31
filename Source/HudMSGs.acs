@@ -1,0 +1,52 @@
+
+
+Script "HudMSG Status" (void)
+{
+	str res = "";
+	while(estaVivo(0))
+	{
+	res = "";
+	 If(StrCmp(GetWeapon(), "SkrNewPistol") == 0)
+	 {
+	 // Pistol + Akimbo.
+		if(!CheckInventory("PistolDualWieldCheck"))
+		{
+		 if(TellReload("PistolMag_Bullet"))
+		 { 
+		  res = strParam(s:res, s:"Reload!\n");
+		 }
+		}
+		else
+		{
+		 if(TellReload("PistolMag_BullLeft") && TellReload("PistolMag_BullRight"))
+		 {
+		  res = strParam(s:res, s:"Akimbo Reload!\n");
+		 }
+		 else
+		 {
+		  if(TellReload("PistolMag_BullLeft"))
+		  {
+		   res = strParam(s:res, s:"Left Reload!\n");
+		  }
+		  if(TellReload("PistolMag_BullRight"))
+		  {
+		   res = strParam(s:res, s:"Right Reload!\n");
+		  }
+		 }
+		}
+	   if(TellLowAmmo("PistolMagazine"))
+	   {
+		 res = strParam(s:res, s:"Low Ammo!\n");
+	   }
+	 } 
+	 
+	 If(GetActorProperty(0,APROP_Health) <= 25)
+	 {
+		res = strParam(s:res, s:"Low HP\n");
+	 } 
+	 
+	 printState(res);
+	 
+	 delay(14);
+	}
+}

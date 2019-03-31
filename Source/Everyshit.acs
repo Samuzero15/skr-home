@@ -1,0 +1,39 @@
+#Library "Everyshit"
+#include "zcommon.acs"
+
+#include "Cons.acs"
+#include "Funs.acs"
+
+#include "Energy.acs"
+
+#include "Katana.acs"
+#include "SplashNTerrain.acs"
+#include "Checkers.acs"
+#include "Akimbo.acs"
+#include "WomboCombo.acs"
+#include "ComboFX.acs"
+#include "AmmoShow.acs"
+#include "CheatDetect.acs"
+#include "Monster.acs"
+#include "FootStep.acs"
+#include "HudMSGs.acs"
+
+// Estas constantes solo funciona si se presiona uno de los dos elementos.
+#define SMASHFORW (ADE + FUEGOPRI)
+#define SMASHBACK (ATR + FUEGOPRI)
+#define SMASHLEFT (IZQ + FUEGOPRI)
+#define SMASHRIGHT (DER + FUEGOPRI)
+
+
+int limit = 256;
+
+function void switchu(void){startTest = !startTest;}
+
+
+script 100 (void) NET
+{	
+	print(l:"TESTLANG");
+	//ACS_NamedExecute("HUDMSG Status", 0, 0);
+	switchu();
+	delay(5);
+}

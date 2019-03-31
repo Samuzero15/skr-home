@@ -1,0 +1,116 @@
+
+script "PistolDualWieldCheck" (Void)
+{
+	//Print(d:CheckInventory("PistolDualWield"), s:" Value for dual wield");
+	SetResultValue(CheckInventory("PistolDualWield"));
+}
+
+Script "PistolCheck" (void)
+{
+	SetResultValue(CheckInventory("SkrNewPistol"));
+}
+
+Script "RevolverCheck" (void)
+{
+	SetResultValue(CheckInventory("SkrRevolver"));
+}
+
+Script "ShotgunCheck" (void)
+{
+	SetResultValue(CheckInventory("SkrNewShotgun"));
+}
+
+Script "Shotgun Full-Ammo Check" (void)
+{
+	bool res = false;
+	if(CheckInventory("SkrNewShotgun") && GotFullAmmo("Shell"))
+	res = true;
+	SetResultValue(res);
+}
+
+Script "SaveUp Shell Check" (int toGive)
+{// Si no puedo exeder la capacidad, dime cuantas cascaras sobran.
+	int amount = CheckInventory("Shell");
+	int saveUp = amount + toGive - GetAmmoCapacity("Shell");
+	SetResultValue(saveUp);
+}
+
+Script "C.RifleCheck" (void)
+{
+	SetResultValue(CheckInventory("SkrCombatRifle"));
+}
+
+Script "C.RifleChargerCheck" (int amount)
+{
+	bool res = true;
+	if(CheckInventory("CombatRifleCharger") < amount) res = false;
+	SetResultValue(res);
+}
+
+Script "C.Rifle Full-Ammo Check" (void)
+{
+	bool res = false;
+	if(CheckInventory("SkrCombatRifle") && GotFullAmmo("CombatRifleClip"))
+	res = true;
+	SetResultValue(res);
+}
+
+Script "Bullet Pack Check" (void)
+{
+	bool res = false;
+	if(GotFullAmmo("PistolMagazine") 
+	&& GotFullAmmo("RevolverBullet") 
+	&& GotFullAmmo("CombatRifleClip")) res = true;
+	SetResultValue(res);
+}
+
+Script "Hold Button Check" (int which)
+{
+	int HoldInput;
+	Giveinventory("HoldingTrigger",1);
+	//Log(s:"\ci(Hold. Trigger)\cd Analize Started!");
+	While (CheckInventory("HoldingTrigger"))
+	{
+	HoldInput = getPlayerInput(-1,input_Buttons) & getPlayerInput(-1,input_OldButtons);
+	
+			If(HoldInput & which)GiveInventory("IsHolding",1);
+			else TakeInventory("IsHolding",1);
+
+		//If(CheckInventory("IsHolding") == 1) Log(s:"Holding!");
+		delay (1);
+	}
+	//Log(s:"\ci(Hold. Trigger)\cd Analize finished!");
+	TakeAllInv("IsHolding");
+}
+
+/*
+Script "ExecuteReload" Enter
+{
+	while(1)
+	{
+		int input = getPlayerInput(-1,INPUT_BUTTONS);
+		if(input & RECARGA)GiveInventory("Reloading",1);
+		delay(1);
+	}
+}
+*/
+
+Script "LiquidCheck" (void)
+{
+	setResultValue(enLiquido(0) && enElSuelo());
+}
+
+Script "Speed Check" (void)
+{
+	int velX = getActorVelX(0);
+	int velY = getActorVelY(0);
+	int velZ = getActorVelZ(0);
+	
+	SetResultValue(Velocidad(velX,velY,velZ));
+}
+
+Script "Is Running" (void)
+{
+	bool Run = tuCorres();
+	SetResultValue(Run);
+}

@@ -1,0 +1,38 @@
+
+Script "Ammo Pack Show" (int whatType)
+{
+	str Name = ""; 
+	str Items = ""; 
+	if(GetCvar("sv_DoubleAmmo") == 1)
+	{
+	 switch(whatType)
+	 {
+		Case BULLETS_SP:
+		Name = strparam(s:"Bullet Small Package");
+		Items = strparam(l:"AMMOSHOW_BULL_SP2A");
+		break;
+		Case BULLETS_BP:
+		Name = strparam(s:"Bullet Big Package");
+		Items = strparam(l:"AMMOSHOW_BULL_BP2A");
+		break;
+	 }
+	}
+	else{
+	 switch(whatType)
+	 {
+		Case BULLETS_SP:
+		Name = strparam(s:"Bullet Small Package");
+		Items = strparam(l:"AMMOSHOW_BULL_SP");
+		break;
+		Case BULLETS_BP:
+		Name = strparam(s:"Bullet Big Package");
+		Items = strparam(l:"AMMOSHOW_BULL_BP");
+		break;
+	 }
+	}
+	
+	SetFont("BIGFONT");
+	HudMessage(s:Name;HUDMSG_TYPEON, 830,CR_GREEN, 0.05,0.6,3.0,0.05,0.2,0);
+	SetFont("CONFONT");
+	HudMessage(s:Items;HUDMSG_TYPEON, 831,CR_WHITE, 0.065,0.625,3.0,0.025,0.2,0);
+}

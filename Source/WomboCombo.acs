@@ -1,0 +1,131 @@
+
+
+Script "Prepare Combo" (void)
+{	
+  int paso;
+  int time = 0;
+  bool valido;
+  anulaCombo(PlayerNumber()); 
+  while(cualArma_Combo() != -1 && Checkinventory("WomboCombo") == 1)
+  {
+	int Tecla = GetPlayerInput(-1, INPUT_BUTTONS) & ~GetPlayerInput(-1, INPUT_OLDBUTTONS);
+	// Russian Overkill me enseño esto :v
+	int Comando = Tecla & (ADE | ATR | IZQ | DER | FUEGOPRI | FUEGOALT | SALTO);
+	int CmdValido = -1;
+	
+	switch(Comando)
+	{
+	  case ADE : 
+	  case ATR : 
+	  case IZQ : 
+	  case DER : 
+	  case SALTO : 
+	  case FUEGOPRI : 
+	  case FUEGOALT : 
+		CmdValido = Comando;
+		valido = true;
+	  default:break;
+	}
+	
+	if (CmdValido != -1)
+	{
+		//print(s:"Paso: ", d:CmdValido);
+		 anadePaso(PlayerNumber(),CmdValido);
+		int womboCombo = validaCombo(PlayerNumber());
+		if(womboCombo > CMB_INPROG) 
+		{
+			//print(s:"Sucess! Code Combo: ", d:womboCombo);
+			resultadoCombo(cualArma_Combo(),womboCombo);
+			anulaCombo(PlayerNumber());
+			valido = false;
+		} else if(womboCombo == CMB_NONE){
+			//ActivatorSound("Nope",127);
+			anulaCombo(PlayerNumber());
+			valido = false;
+		} //else ActivatorSound("ding",127);
+		time = 0;
+	}
+	else if ( time > LIMTIEMPO && valido == true)
+	{
+		//ActivatorSound("Nope",127);
+		anulaCombo(PlayerNumber());
+		valido = false;
+		time = 0;
+	} else if (valido == true) time++;
+	
+	//log(s:"Time: ", d:time);
+	delay(1);
+  }
+  anulaCombo(PlayerNumber()); 
+  // To resetto the combo after switching on a non combored weapon.
+}
+
+function void anadePaso (int play, int paso)
+{
+	combo[play][ordPaso[play]] = paso;
+}
+
+function void anulaCombo (int play)
+{
+	for(int i = 0; i < PASOS; i++){combo[play][i] = 0;}
+	for(int j = 0; j < LISTCOMBOS; j++) {tryToDo[play][j] = 0;}
+	ordPaso[play] = 0;
+}
+
+// Asi que... Con esto y estas 2 funciones podemos validar combinachioneh!
+// El proceso es simple, con un paso de combo que hago se verifica a cada lista de combo
+// si en el orden que voy es el mismo paso que el de la lista, si lo es, 
+// entonces tentativamente ese sera el combo que hare.
+//
+// Por lo tanto, si completo el combo, automaticamente se aplica el codigo de combo.
+// Y despues el efecto del combo.
+// Tecnicamente es como predecir el combo que necesitas.
+
+// -Samuzero15tlh-
+
+function int cualArma_Combo(void)
+{
+	int indX = -1;
+	for (int i = 0 ; i < ARMACOMBO ; i++)
+	{
+		if(strCmp(getWeapon(),ArmasConCombo[i]) == 0) indX = i;
+	}
+	return indX;
+}
+
+function int validaCombo (int play)
+{
+	int OrdenActual = ordPaso[play];
+	int PasoAVerificar = combo[play][OrdenActual];
+	int ComboArma = cualArma_Combo();
+	int exito = CMB_NONE;
+	
+	if(ComboArma == -1) return CMB_NONE;
+	
+	 for (int i = 0; i < LISTCOMBOS; i++)
+	 {// i simboliza el numero de la lista de combo, indicando por indexado la lista.
+	 if(tryToDo[play][i] == 1){
+		 if(listCombo[ComboArma][i][OrdenActual] == PasoAVerificar)
+			{
+				if((listCombo[ComboArma][i][OrdenActual+1]) == FIN) 
+				 { exito = i+1; break; }
+				else exito = CMB_INPROG;
+			}
+		 else tryToDo[play][i] = -1;
+		 continue;
+		}
+	 else if (tryToDo[play][i] == 0){
+	 	 if(listCombo[ComboArma][i][OrdenActual] == PasoAVerificar){
+			tryToDo[play][i] = 1;
+			exito = CMB_INPROG;
+			}
+		 else tryToDo[play][i] = -1;
+	    }
+	 }
+	/*if (exito != CMB_INPROG && exito != CMB_NONE) 
+	 { ActivatorSound("great!",127); } 
+	else*/ 
+	if (exito == CMB_INPROG) ordPaso[play]++;
+	return exito;
+}
+

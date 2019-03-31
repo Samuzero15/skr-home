@@ -1,0 +1,185 @@
+
+bool startTest = false;
+script "Energy" ENTER
+{
+	Setfont("SmallFont");
+	int pastamount = 0;
+	int ultimoZ = getActorZ(0);
+    int viejoZ;
+	ACS_NamedExecuteAlways("Energy Regen",0);
+	while(1)
+	{
+	
+	/*
+	int tired = Checkinventory("TiredCheck");
+	 if(tired) hudMessage(s:"ENERGY ", d:GetEnergy();
+		HUDMSG_PLAIN, 8, CR_RED, 0.05, 0.88,1);
+	 else hudMessage(s:"ENERGY ", d:GetEnergy();
+	    HUDMSG_PLAIN, 8, CR_Gold, 0.05, 0.88,1);
+		
+	 setfont("SmallFont");
+	 */
+	 DisplayEnergia(GetEnergy());
+	 estaAgachado();
+	 estaSaltando();
+	 cheatDetect();
+	 if(startTest == true)print(f:25.0);
+	 delay(1);
+	}
+	
+}
+
+script "Energy Regen" (void)
+{ // Esto solo regenera la energia que se otorga en la energia maxima.
+	int x, y, z;
+	int speed;
+	while(1){
+	 x = getActorVelX(0);
+	 y = getActorVelY(0);
+	 z = getActorVelZ(0);
+	//log(d:Velocidad(x,y,z)); 
+	// Dependiendo de la velocidad, tu energia se recargará.
+		// A menos velocidad, mas rapida la recuperacion.
+		// A mas velocidad,  mas lenta la recuperacion.
+		
+		// Recuerda que la energia la necesitaras para hacer combos!
+		// Y tambien para disparar mas rapido con el fuego a tiempo!
+		
+	if(CheckInventory("EnergyRegenPause") == 0)
+		RecuperarEnergia(1);
+		
+	delay(Velocidad(x,y,z)*2 + 6);
+	if(CheckInventory("EnergyRegenPause") == 1)
+		TakeInventory("EnergyRegenPause",1);
+	}
+}
+
+script "Energy Recovery" (int howmuch)
+{
+	RecuperarEnergia(howmuch);
+}
+
+script "Energy Addition" (int howmuch)
+{
+	AnadirEnergia(howmuch);
+}
+
+script "Energy Expansion" (int howmuch)
+{
+	GiveInventory("MaxEnergy", howmuch);
+}
+
+script "Energy Use" (int howmuch)
+{
+ 	UsarEnergia(howmuch);
+}
+
+script "Energy Check Use" (int howmuch)
+{
+ 	SetResultValue(EnergiaSuficiente(howmuch));
+}
+
+function bool EnergiaSuficiente(int cuanto) { return GetEnergy() >= cuanto; }
+
+function bool UsarEnergia (int cuanto)
+{
+	int energia = GetEnergy();
+	int posible = false;
+	if(energia >= cuanto)
+	{   
+		TakeInventory("PercentEnergy", cuanto);
+		GiveInventory("EnergyRegenPause",1);
+		posible = true;
+	} else {
+		int cansar = cuanto - energia;
+		GiveInventory("PercentTiring", cansar);
+		TakeInventory("PercentEnergy", 0x7fffffff);
+		GiveInventory("EnergyRegenPause",1);
+		CansarJugador();
+	}
+	return posible;
+}
+
+function bool AnadirEnergia (int cuanto)
+{
+	int cansancio = GetTiring();
+	int posible = false;
+	bool anadimos = true;
+	if(cansancio >= cuanto)
+	{   
+		TakeInventory("PercentTiring", cuanto);
+		posible = true;
+	} else {
+		int energizar = cuanto - cansancio;
+		GiveInventory("PercentEnergy", energizar);
+		TakeInventory("PercentTiring", 0x7fffffff);
+		DescanzarJugador();
+		posible = true;
+	}
+	return posible;
+}
+
+function bool RecuperarEnergia (int cuanto)
+{
+	int cansancio = GetTiring();
+	int posible = false;
+	bool anadimos = true;
+	if(cansancio >= cuanto)
+	{   
+		TakeInventory("PercentTiring", cuanto);
+		posible = true;
+	} else {
+		int energizar = cuanto - cansancio;
+		int energiatotal = GetEnergy() + cuanto;
+		if(energiatotal > GetMaxEnergy()) anadimos = false;
+		if(anadimos == true)
+		{
+		GiveInventory("PercentEnergy", energizar);
+		TakeInventory("PercentTiring", 0x7fffffff);
+		DescanzarJugador();
+		posible = true;
+		}
+	}
+	return posible;
+}
+
+function void DisplayEnergia(int cuanto)
+{
+	int normal = 0, extra = 0, final = 0;
+	
+	TakeInventory("NormalEnergy", 100);
+	TakeInventory("ExtraEnergy", 100);
+	TakeInventory("FinalEnergy", 100);
+	
+		if(cuanto >= 100)
+		{
+			normal = 100;
+		}
+		else normal = cuanto;
+		cuanto = cuanto - 100;
+		GiveInventory("NormalEnergy", normal);
+		
+		if(cuanto >= 100)
+		{ 
+			extra = 100;
+		}
+		else extra = cuanto;
+		cuanto = cuanto - 100;
+		GiveInventory("ExtraEnergy", extra);
+		
+		final = cuanto;
+		GiveInventory("FinalEnergy", final);
+}
+
+function void CansarJugador(void)
+{
+ Giveinventory("TiredCheck", 1);
+ GiveInventory("NotReady", 1);
+}
+
+function void DescanzarJugador(void)
+{
+ takeinventory("TiredCheck", 1);
+ takeInventory("NotReady", 1);
+}
+

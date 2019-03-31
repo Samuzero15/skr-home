@@ -1,0 +1,118 @@
+
+
+
+#define ADE BT_FORWARD
+#define ATR BT_BACK
+#define IZQ BT_MOVELEFT
+#define DER BT_MOVERIGHT
+#define SALTO BT_JUMP
+#define FUEGOPRI BT_ATTACK
+#define FUEGOALT BT_ALTATTACK
+#define AGACHO BT_CROUCH
+#define RECARGA BT_RELOAD
+#define ZOOM BT_ZOOM
+#define USAR BT_USE
+
+#define FUEGO (BT_ATTACK | BT_ALTATTACK)
+
+#define TAMCOMBO 3
+#define NCOMBOS 5
+#define DASH_FORWARD_EXE 1
+#define DODGE_LEFT_EXE 2
+#define DODGE_RIGHT_EXE 3
+#define DASH_BACKWARD_EXE 4
+#define DECAPITATE_EXE 5
+#define UNSETTLED 100
+#define NONE_EXE 0
+#define TIMEOUT_COMBO 8
+#define LEVEL_I 1
+#define LEVEL_II 2
+#define Jugadores 8
+
+//Katana.ACS
+///////////////////////////////////////////////
+int comb[Jugadores][TAMCOMBO];
+
+int comb_DASH_FORWARD[2] = {ADE, ADE};
+int comb_DODGE_LEFT[2] = {IZQ, IZQ};
+int comb_DODGE_RIGHT[2] = {DER, DER};
+int comb_DASH_BACKWARD[2] = {ATR, ATR};
+int comb_DECAPITATE[3] = {ADE, SALTO, FUEGOPRI};
+//int comb_SlashGale[4] = {ATR, FUEGOALT, ADE, FUEGOPRI};
+
+// WomboCombo.acs
+//////////////////////////////////////////////
+#define PASOS 5
+#define LISTCOMBOS 5
+#define FIN -1
+
+// Fist
+#define CMB_SMASHFORWARD 1
+#define CMB_SMASHBACKWARD 2
+#define CMB_SMASHLEFT 3
+#define CMB_SMASHRIGHT 4
+
+// Katana
+#define CMB_DASHFORWARD 1
+#define CMB_DASHBACKWARD 2
+#define CMB_DASHLEFT 3
+#define CMB_DASHRIGHT 4
+#define CMB_DECAPITATE 5
+
+#define CMB_WPN_FIST 0
+#define CMB_WPN_KATANA 1
+
+#define ARMACOMBO 2
+
+#define CMB_INPROG 0
+#define CMB_NONE -1
+
+#define LIMTIEMPO 6
+int ordPaso[Jugadores];
+int tryToDo[Jugadores][LISTCOMBOS];
+int combo[Jugadores][PASOS];
+
+str ArmasConCombo[ARMACOMBO] = {"SkrNewFist", "SkrKatana"};
+
+int listCombo[ARMACOMBO][LISTCOMBOS][PASOS] = {
+
+ { // Fist Combos.
+	{ADE, FUEGOPRI, FIN}, // Smash Forward
+	{ATR, FUEGOPRI, FIN}, // Smash Backward
+	{IZQ, FUEGOPRI, FIN}, // Smash Left
+	{DER, FUEGOPRI, FIN}, // Smash Right
+	{FIN}				  // No combo.
+ },
+ 
+ { // Katana Combos
+	{ADE, ADE, FIN}, // Dash Forward
+	{ATR, ATR, FIN}, // Dash Backward
+	{IZQ, IZQ, FIN}, // Dash Left
+	{DER, DER, FIN}, // Dash Right
+	{ADE, SALTO, FUEGOPRI, FIN} // Decapitate
+ }
+};
+
+// Armas totales.
+//////////////////////////////////////////////
+#define NArmas 5
+
+str StrArmas[NArmas] = {"SkrNewFist", "SkrNewPistol", 
+						"SkrKatana", "SkrNewShotgun",
+						"SkrCombatRifle"};
+						
+//////////////////////////////////////////////
+
+// AmmoShow.acs
+
+//////////////////////////////////////////////
+
+	#define BULLETS_SP 1
+	#define BULLETS_BP 2
+	#define SHELLS_SP 3
+	#define SHELLS_BP 4
+	#define EXPLOSIVE_SP 5
+	#define EXPLOSIVE_BP 6
+	#define PLASMA_SP 7
+	#define PLASMA_BP 8
+

@@ -1,0 +1,216 @@
+
+// Thanks to MeatyD for the function!
+Function void ModifyPlayerFriction(int TID, int scale)
+{
+	SetActorVelocity(TID,	FixedMul(scale, GetActorVelX(TID)),
+							FixedMul(scale, GetActorVelY(TID)),
+							GetActorVelZ(TID),
+							false, true);
+}
+
+script "Initialize" OPEN
+{
+ for (int i = 0; i < Jugadores; i++)
+  for (int j = 0; j < TAMCOMBO; j++)
+   comb[i][j] = 0;
+}
+
+Function bool GotFullAmmo(str ammo)
+{
+	return (CheckInventory(ammo) == GetAmmoCapacity(ammo));
+}
+
+Function int GetEnergy(void) {return CheckInventory("PercentEnergy");}
+
+Function int GetMaxEnergy(void) {return CheckInventory("MaxEnergy");}
+
+Function int GetTiring(void) {return CheckInventory("PercentTiring");}
+
+Function void TakeAllInv(str inv) {Takeinventory(inv, 0X7FFFFFFF);}
+
+Function void GiveAllInv(str inv) {Giveinventory(inv, 0X7FFFFFFF);}
+
+Function bool estaVivo(int tid)
+{
+	return
+		!(GetActorProperty(tid,APROP_Health) < 1);
+}
+
+Function void debug(str funName, str msg)
+{
+	str result = "";
+	
+	result = strParam(s:"\ci[", s:funName, s:"] \cd",s:msg);
+	
+	ActivatorSound("misc/chat2",127);
+	
+	log(s:result);
+}
+
+Function bool TellLowAmmo(str thing)
+{
+	bool gotLowAmmo = false;
+	
+	int ammo = CheckInventory(thing);
+	int maxAmmo = GetAmmoCapacity(thing);
+	
+	if(ammo * (100/maxAmmo) < 20) gotLowAmmo = true;
+	
+	return gotlowAmmo;
+}
+
+Function void printState(str state)
+{
+	str result = "";
+	result = strParam(s:state);
+	
+	setfont("BigFont");
+	HudMessage(s:result; HUDMSG_FADEOUT,900,CR_RED,0.5,0.6,0,0.5);
+}
+
+Function bool TellReload(str ammo)
+{
+	return CheckInventory(ammo) == 0;
+}
+
+Function void limpiaCombo(int jugador)
+{for(int i = 0; i < TAMCOMBO; i++) comb[jugador][i] = 0;}
+
+Function bool IsTired(void) 
+{return CheckInventory("TiredCheck") == 1;}
+
+// Funcion cortesia de zdoom.
+Function void DrawSprite (Str Sprite, Int ID, Int X, Int Y,int Time, Int Alpha)
+{
+	SetFont(Sprite);
+	HUDMessage(s:"A";HUDMSG_PLAIN| HUDMSG_NOTWITHFULLMAP |HUDMSG_ALPHA, ID, CR_UNTRANSLATED, X, Y,Time, Alpha);
+}
+
+Function void DrawSpriteFadeout (Str Sprite, Int ID, Int X, Int Y,int Time, int fadeTime, Int Alpha)
+{
+	SetFont(Sprite);
+	HUDMessage(s:"A"; HUDMSG_FadeOut|HUDMSG_NOTWITHFULLMAP|HUDMSG_ALPHA, ID, CR_UNTRANSLATED, X, Y, Time, fadetime, Alpha);
+}
+
+Function Bool IsTIDUnique (Int TID)
+{
+	If (ThingCount(T_NONE, TID) > 1)
+	{
+		// It isn't unique, so return false
+		Return False;
+	}
+	
+	If (!(IsTIDUsed(TID)))
+	{
+		// There are no actors with this TID
+		Return False;
+	}
+	Return True;
+}
+
+Function Int GetActivatorTID (void)
+{
+	If (!(IsTIDUnique(ActivatorTID())))
+		Thing_ChangeTID (0, UniqueTID());
+	Return ActivatorTID();
+}
+
+function int maximo(int i1, int i2){
+ if(i1 > i2) return i1;
+ else if(i2 > i1) return i2;
+ return i1;
+}
+function int minimo(int i1, int i2){
+ if(i1 < i2) return i1;
+ else if(i2 < i1) return i2;
+ return i2;
+}
+function bool entreValores(int i, int min, int max)
+{return  (i >= min && i <= max);}
+function bool mismoBoton(int bt1, int bt2)
+{return  (bt1 == bt2);}
+function bool enElSuelo(void) 
+{
+	return  ( (GetActorFloorZ(0) == GetActorZ(0)) || (GetActorVelZ(0) &&
+ !Spawn("FloorCheck",GetActorX(0),GetActorY(0),GetActorZ(0) - (4 << 16),0,GetActorAngle(0))));
+		  
+}
+
+function int f_Pow2(int i)
+{
+	return FixedMul(i,i);
+}
+
+function int isqrt (int n)
+{
+	int a;
+	for (a=0;n>=(2*a)+1;n-=(2*a++)+1);
+	return a;
+}
+
+function int Velocidad(int x, int y, int z)
+{
+	int res = f_pow2(x)+f_pow2(y)+f_pow2(z);
+	int int_res = FixedSqrt(res) >> 16;
+	return int_res;
+}
+
+function bool tuCorres(void)
+{
+	int Move = getPlayerInput(-1,MODINPUT_ForwardMove);
+	bool res;
+	if(Move > 6400 || Move < -6400) res = true;
+	else res = false;
+	return res;
+}
+
+function void estaAgachado(void)
+{
+	int ViewHeightProp = GetActorProperty(ActivatorTID(),APROP_ViewHeight);
+	if (GetActorViewHeight(ActivatorTID()) != ViewHeightProp) {
+	   GiveInventory("OnCrouch",1);
+	}
+	Else {TakeInventory("OnCrouch",1);}
+}
+
+function void estaSaltando(void)
+{
+	if(!enElSuelo()) GiveInventory("OnJump",1);
+	else Takeinventory("Onjump",1);
+}
+
+function bool TeclaPresionada(int tecla)
+{
+	int Botones = GetPlayerInput(-1,INPUT_BUTTONS);
+	bool res = (Botones & Tecla) == Tecla;
+	return res;
+}
+
+function bool TeclaPulsada(int tecla)
+{
+	int Botones = GetPlayerInput(-1,INPUT_BUTTONS) & ~GetPlayerInput(-1,INPUT_OLDBUTTONS);
+	bool res = (Botones & Tecla) == Tecla;
+	return res;
+}
+
+function int diffDano(int id)
+{
+	int health = getActorProperty(id, APROP_Health);
+	int totalhealth = getActorProperty(id, APROP_SpawnHealth);
+	return (totalHealth - health);
+}
+
+function str ArmaActual (void)
+{// Con una lista inmensa de armas, devuelveme la que tengo equipada.
+	int i;
+	str res = "";
+	for (i = 0; i < Narmas; i++)
+	{
+		if(StrCmp(StrArmas[i],GetWeapon()) == 0)
+		 {
+			res = StrParam(s:res, s:GetWeapon());
+			return res;
+		 }
+	}
+	return "Ninguna / NoDefinida";
+}
