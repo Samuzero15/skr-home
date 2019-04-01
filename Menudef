@@ -1,8 +1,0 @@
-
-
-OptionMenuSettings
-{// El skrSmallfont necesita algo mas de espacio 
- //en cuanto en el menu de opciones, 
- //por eso se sobrescribe el espaciado de 8 a 10 para mantener la estetica.
-	Linespacing 10
-}
